@@ -36,10 +36,15 @@ contract TokenSwap is Oracle {
         uint256 amount,
         uint256 nonce,
         uint256 timestamp,
+        string signture,
         State indexed state
     );
 
-    function burnEth(address _to, uint256 _amount) public {
+    function burnEth(
+        address _to,
+        uint256 _amount,
+        string memory signature
+    ) public {
         require(
             compleatedTransaction[msg.sender][counter] == false,
             "Bridge: Transaction already Exist"
@@ -53,12 +58,17 @@ contract TokenSwap is Oracle {
             _amount,
             counter,
             block.timestamp,
+            signature,
             State.Burn
         );
         counter++;
     }
 
-    function burnBtc(address _to, uint256 _amount) public {
+    function burnBtc(
+        address _to,
+        uint256 _amount,
+        string memory signature
+    ) public {
         require(
             compleatedTransaction[msg.sender][counter] == false,
             "Bridge: Transaction already Exist"
@@ -72,6 +82,7 @@ contract TokenSwap is Oracle {
             _amount,
             counter,
             block.timestamp,
+            signature,
             State.Burn
         );
         counter++;
@@ -101,6 +112,7 @@ contract TokenSwap is Oracle {
             mintAmount,
             _nonce,
             block.timestamp,
+            string(signature),
             State.Mint
         );
     }
@@ -129,6 +141,7 @@ contract TokenSwap is Oracle {
             mintAmount,
             _nonce,
             block.timestamp,
+            string(signature),
             State.Mint
         );
     }
